@@ -64,6 +64,16 @@ const deleteTask = (taskNumber) =>{
   return;
 }
 
+  const moveTaskToTXt = ()=>{
+    const tasks = getMyTasks();
+    fs.writeFileSync(path.join(__dirname,"task.txt"),"");
+    tasks.forEach((task,index)=>{
+      fs.appendFileSync(path.join(__dirname,"task.txt"),`${task.description} - [${task
+        .completed ? "Done" : "Not Done"}]\n`
+        );
+        });
+  }
+
 function todoManager() {
     rl.question(`What would you like to do?
     1. Add a task
@@ -96,6 +106,7 @@ function todoManager() {
           });
           break;
         case "5":
+          moveTaskToTXt();
           rl.close();
           break;
         default:
